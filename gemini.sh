@@ -41,5 +41,5 @@ function gemini() {
     -v "$HOME/.gemini":/home/geminiuser/.gemini \
     -v "$HOME/.gitconfig":/home/geminiuser/.gitconfig \
     -v "$HOME/.ssh":/home/geminiuser/.ssh:ro \
-    my-gemini "$@"
+    gemini-image "$@"
 }

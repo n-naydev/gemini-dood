@@ -18,13 +18,20 @@ This project provides a Dockerized setup for the Gemini CLI, ensuring a consiste
    docker build -t gemini-image .
    ```
 
-2. Run the image using the provided helper script or directly via Docker:
+2. Install the `gemini` command alias (adds to `.bashrc`):
    ```bash
-   ./gemini.sh
+   ./install.sh
+   source ~/.bashrc
+   ```
+
+3. Run the Gemini CLI:
+   ```bash
+   gemini --help
    ```
 
 ## Files
 
 - `Dockerfile`: Defines the Node.js environment with Docker CLI and Gemini CLI.
 - `entrypoint.sh`: Handles user/group mapping and Docker socket permissions within the container.
-- `gemini.sh`: A helper script to launch the Gemini CLI container.
+- `gemini.sh`: A helper script/function to launch the Gemini CLI container.
+- `install.sh`: Setup script to add `gemini` to your shell environment.
