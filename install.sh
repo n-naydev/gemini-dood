@@ -7,6 +7,11 @@ BASHRC="$HOME/.bashrc"
 
 echo "Installing Gemini CLI wrapper..."
 
+# Ensure ~/.gemini/instructions exists and copy GEMINI.md there
+mkdir -p "$HOME/.gemini/instructions"
+cp "$INSTALL_DIR/GEMINI.md" "$HOME/.gemini/instructions/GEMINI.md"
+echo "✅ Copied GEMINI.md to $HOME/.gemini/instructions/GEMINI.md"
+
 # Check if the script is already sourced in .bashrc
 if grep -q "source \"$SCRIPT_PATH\"" "$BASHRC"; then
     echo "✅ gemini.sh is already sourced in $BASHRC"
