@@ -13,6 +13,7 @@ Every project must include a `Dockerfile` that defines the necessary runtime env
 A `docker-compose.yaml` file must be provided. It should:
 - Mount the source code as a volume to allow for live updates and persistent storage.
 - Define the services required for building and running the application.
+- (Recommended) Attach services to the `gemini` network to allow the CLI to communicate with them directly.
 
 Example `docker-compose.yaml` snippet:
 ```yaml
@@ -22,6 +23,12 @@ services:
     volumes:
       - .:/app
     working_dir: /app
+    networks:
+      - gemini
+
+networks:
+  gemini:
+    external: true
 ```
 
 ### 3. Containerized Execution
