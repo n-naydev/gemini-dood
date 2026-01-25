@@ -46,10 +46,12 @@ export SHELL=/bin/bash
 # and drops into a shell if gemini crashes.
 
 exec gosu "$USERNAME" /bin/bash -c '
-    # Ensure a shared network exists for Docker Compose interactions
-    if [ -S /var/run/docker.sock ] && ! docker network inspect gemini >/dev/null 2>&1; then
-        echo "Creating docker network: gemini"
-        docker network create gemini >/dev/null 2>&1 || true
+    # Auto-detect Docker API version to prevent client/server mismatch errors
+    if [ -S /var/run/docker.sock ]; then
+        API_VERSION=$(curl -s --unix-socket /var/run/docker.sock http://localhost/version 2>/dev/null | grep -o "\"ApiVersion\":\"[^\"]*\"" | cut -d\" -f4)
+        if [ -n "$API_VERSION" ]; then
+            export DOCKER_API_VERSION="$API_VERSION"
+        fi
     fi
 
     echo "Running command: gemini $@"

@@ -26,11 +26,17 @@ function gemini() {
     shift 
   fi
 
-  # 3. Run Secure Container
+  # 3. Ensure the 'gemini' docker network exists
+  if ! docker network inspect gemini >/dev/null 2>&1; then
+    docker network create gemini >/dev/null
+  fi
+
+  # 4. Run Secure Container
   # We pass the key from the variable we just read into the container
 
   docker run -it --rm \
     --name "gemini-safe-$(echo "$PWD" | tr '/' '-')" \
+    --network gemini \
     -e HOST_UID=$(id -u) \
     -e HOST_GID=$(id -g) \
     -e GEMINI_API_KEY="$API_KEY" \
