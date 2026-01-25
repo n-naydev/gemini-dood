@@ -46,6 +46,12 @@ export SHELL=/bin/bash
 # and drops into a shell if gemini crashes.
 
 exec gosu "$USERNAME" /bin/bash -c '
+    # Ensure a shared network exists for Docker Compose interactions
+    if [ -S /var/run/docker.sock ] && ! docker network inspect gemini >/dev/null 2>&1; then
+        echo "Creating docker network: gemini"
+        docker network create gemini >/dev/null 2>&1 || true
+    fi
+
     echo "Running command: gemini $@"
     
     # Run the Gemini tool
