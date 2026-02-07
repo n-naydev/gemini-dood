@@ -48,7 +48,7 @@ export SHELL=/bin/bash
 exec gosu "$USERNAME" /bin/bash -c '
     # Auto-detect Docker API version to prevent client/server mismatch errors
     if [ -S /var/run/docker.sock ]; then
-        API_VERSION=$(curl -s --unix-socket /var/run/docker.sock http://localhost/version 2>/dev/null | grep -o "\"ApiVersion\":\"[^\"]*\"" | cut -d\" -f4)
+        API_VERSION=$(curl -s --unix-socket /var/run/docker.sock http://localhost/version 2>/dev/null | grep -o "\"ApiVersion\":\"[^\"]*\"" | cut -d\" -f4 | head -n 1)
         if [ -n "$API_VERSION" ]; then
             export DOCKER_API_VERSION="$API_VERSION"
         fi

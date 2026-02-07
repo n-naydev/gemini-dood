@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     gnupg \
     gosu \
+    procps \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. Install Docker CLI (No Engine)
