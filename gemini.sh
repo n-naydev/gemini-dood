@@ -42,6 +42,7 @@ function gemini() {
     -e GEMINI_API_KEY="$API_KEY" \
     -e GEMINI_SYSTEM_MD="/home/geminiuser/.gemini/instructions/GEMINI.md" \
     -e NPM_CONFIG_UPDATE_NOTIFIER=false \
+    -e COLORTERM=truecolor \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v "$PWD":"$PWD" \
     -w "$PWD" \
